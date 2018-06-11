@@ -42,6 +42,13 @@
   (diminish 'company-mode)
   (diminish 'holes-mode))
 
+(defun setup-eldoc ()
+  (setq-local eldoc-documentation-function
+              (lambda ()
+                (-if-let* ((symbol (company-coq-symbol-at-point)))
+                    (company-coq-meta-symbol symbol))))
+  (eldoc-mode))
+
 (defun coq/init-company-coq ()
   (use-package company-coq
     :defer t
@@ -49,6 +56,8 @@
     (add-hook 'coq-mode-hook #'company-coq-mode)
     (add-hook 'coq-mode-hook #'setup-coq-keys)
     (add-hook 'coq-mode-hook #'hide-mode-statuses)
+    (when coq-enable-eldoc
+      (add-hook 'coq-mode-hook #'setup-eldoc))
     (spacemacs/declare-prefix-for-mode
       'coq-mode
       "mi" "coq/insert")
