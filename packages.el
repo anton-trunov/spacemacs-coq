@@ -54,7 +54,8 @@
       "mi" "coq/insert")
     (spacemacs/set-leader-keys-for-major-mode 'coq-mode
       "il" 'company-coq-lemma-from-goal
-      "im" 'company-coq-insert-match-construct)))
+      "im" 'company-coq-insert-match-construct
+      "d" 'company-coq-jump-to-definition)))
 
 (defun coq/init-proof-general ()
   "Initialize Proof General."
@@ -77,23 +78,24 @@
                       ("mp" . "pg/prover")
                       ("ma" . "pg/ask-prover")
                       ("mai" . "show-implicits")
-                      ("man" . "show-all") ; n is for notation
+                      ("maa" . "show-all") ; a is for "all"
                       ("mg" . "pg/goto")))
       (spacemacs/declare-prefix-for-mode
         'coq-mode
         (car prefix) (cdr prefix)))
     (spacemacs/set-leader-keys-for-major-mode 'coq-mode
-      ;; Basic proof management
-      "]" 'proof-assert-next-command-interactive
-      "[" 'proof-undo-last-successful-command
+      ;; Basic proof management and navigation
+      "n" 'proof-assert-next-command-interactive
+      "u" 'proof-undo-last-successful-command
       "." 'proof-goto-point
+      "e" 'proof-goto-end-of-locked
       ;; Layout
       "ll" 'proof-layout-windows
       "lc" 'pg-response-clear-displays
       "lp" 'proof-prf
       ;; Prover Interaction
+      "pi" 'proof-interrupt-process
       "px" 'proof-shell-exit
-      "pc" 'proof-interrupt-process
       "pr" 'proof-retract-buffer
       "pb" 'proof-process-buffer
       ;; Prover queries ('ask prover')
@@ -104,11 +106,10 @@
       "aip" 'coq-Print-with-implicits
       "aic" 'coq-Check-show-implicits
       "aib" 'coq-About-with-implicits
-      "anp" 'coq-Print-with-all
-      "anc" 'coq-Check-show-all
-      "anb" 'coq-About-with-all
+      "aap" 'coq-Print-with-all
+      "aac" 'coq-Check-show-all
+      "aab" 'coq-About-with-all
       ;; Moving the point (goto)
-      "g." 'proof-goto-end-of-locked
       "ga" 'proof-goto-command-start
       "ge" 'proof-goto-command-end
       ;; Insertions

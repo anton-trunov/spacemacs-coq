@@ -4,7 +4,9 @@ Adds support for Coq via [Proof General](https://github.com/ProofGeneral/PG) and
 
 ## Installation
 
-To install, run `git clone https://github.com/tchajed/spacemacs-coq ~/.emacs.d/private/coq` and add `coq` to your `dotspacemacs-configuration-layers` list.
+To install, run
+```git clone https://github.com/tchajed/spacemacs-coq ~/.emacs.d/private/coq```
+and add `coq` to your `dotspacemacs-configuration-layers` list.
 
 ## Shortcuts
 
@@ -15,8 +17,8 @@ This layer adds Spacemacs-style shortcuts for the most useful parts of Proof Gen
 Key Binding  | Description
 -----------  | -----------
 `<f4>`, `,.` | Go to point
-`<f3>`, `,]` | Process next command
-`<f2>`, `,[` | Undo previous command
+`<f3>`, `,n` | Process next command
+`<f2>`, `,u` | Undo previous command
 
 ### Laying out windows
 
@@ -30,7 +32,7 @@ Key Binding  | Description
 
 Key Binding  | Description
 -----------  | -----------
-`,pc`        | Interrupt prover
+`,pi`        | Interrupt prover
 `,px`        | Quit prover
 `,pr`        | Retract buffer - rewinds and moves point to beginning of buffer
 `,pb`        | Process buffer - processes and moves point to end of buffer
@@ -48,17 +50,18 @@ Key Binding  | Description
 `,aip`       | Print (showing implicits)
 `,aic`       | Check (showing implicits)
 `,aib`       | About (showing implicits)
-`,anp`       | Print (showing all; mnemonic for `n` is "notations")
-`,anc`       | Check (showing all; mnemonic for `n` is "notations")
-`,anb`       | About (showing all; mnemonic for `n` is "notations")
+`,aap`       | Print (showing all)
+`,aac`       | Check (showing all)
+`,aab`       | About (showing all)
 
 ### Moving the point
 
 Key Binding  | Description
 -----------  | -----------
-`,g.`         | Go to last processed command
-`,ga`         | Go to start of command at point
-`,ge`         | Go to end of command at point
+`,e`         | Go to last processed command
+`,d`         | Jump to definition at point
+`,ga`        | Go to start of command at point
+`,ge`        | Go to end of command at point
 
 ### Inserting
 
