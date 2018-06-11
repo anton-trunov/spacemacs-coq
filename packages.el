@@ -49,6 +49,15 @@
                     (company-coq-meta-symbol symbol))))
   (eldoc-mode))
 
+(defun coq-scratch ()
+  "Open a new scratch buffer with coq-mode activated"
+  (interactive)
+  (let (($buf (generate-new-buffer "coq-scratch")))
+    (switch-to-buffer $buf)
+    (coq-mode)
+    (setq buffer-offer-save t)
+    $buf))
+
 (defun coq/init-company-coq ()
   (use-package company-coq
     :defer t
