@@ -75,6 +75,23 @@
       "im" 'company-coq-insert-match-construct
       "d" 'company-coq-jump-to-definition)))
 
+(defun setup-common-leader-keys-for-pg-modes ()
+  "Setup common key bindings for coq-mode, coq-goals-mode, and coq-response-mode"
+  (cl-loop for (key . func) in
+        '(("ap"  . coq-Print)
+          ("ac"  . coq-Check)
+          ("ab"  . coq-About)
+          ("aip" . coq-Print-with-implicits)
+          ("aic" . coq-Check-show-implicits)
+          ("aib" . coq-About-with-implicits)
+          ("aap" . coq-Print-with-all)
+          ("aac" . coq-Check-show-all)
+          ("aab" . coq-About-with-all))
+        do
+        (spacemacs/set-leader-keys-for-major-mode 'coq-mode key func)
+        (spacemacs/set-leader-keys-for-major-mode 'coq-response-mode key func)
+        (spacemacs/set-leader-keys-for-major-mode 'coq-goals-mode key func)))
+
 (defun coq/init-proof-general ()
   "Initialize Proof General."
   ;; Setup from Proof General README, using a Homebrew path. Proof General
@@ -101,6 +118,7 @@
       (spacemacs/declare-prefix-for-mode
         'coq-mode
         (car prefix) (cdr prefix)))
+    (setup-common-leader-keys-for-pg-modes)
     (spacemacs/set-leader-keys-for-major-mode 'coq-mode
       ;; Basic proof management and navigation
       "n" 'proof-assert-next-command-interactive
@@ -118,15 +136,6 @@
       "pb" 'proof-process-buffer
       ;; Prover queries ('ask prover')
       "af" 'proof-find-theorems
-      "ap" 'coq-Print
-      "ac" 'coq-Check
-      "ab" 'coq-About
-      "aip" 'coq-Print-with-implicits
-      "aic" 'coq-Check-show-implicits
-      "aib" 'coq-About-with-implicits
-      "aap" 'coq-Print-with-all
-      "aac" 'coq-Check-show-all
-      "aab" 'coq-About-with-all
       ;; Moving the point (goto)
       "ga" 'proof-goto-command-start
       "ge" 'proof-goto-command-end
