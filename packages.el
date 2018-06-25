@@ -58,6 +58,12 @@
     (setq buffer-offer-save t)
     $buf))
 
+(defun setup-common-leader-keys-for-all-pg-modes (key-table)
+  (cl-loop for (key . func) in key-table do
+           (spacemacs/set-leader-keys-for-major-mode 'coq-mode key func)
+           (spacemacs/set-leader-keys-for-major-mode 'coq-response-mode key func)
+           (spacemacs/set-leader-keys-for-major-mode 'coq-goals-mode key func)))
+
 (defun coq/init-company-coq ()
   (use-package company-coq
     :defer t
@@ -70,27 +76,14 @@
     (spacemacs/declare-prefix-for-mode
       'coq-mode
       "mi" "coq/insert")
+    (setup-common-leader-keys-for-all-pg-modes
+     '(
+       ("d" . company-coq-jump-to-definition)
+       ))
     (spacemacs/set-leader-keys-for-major-mode 'coq-mode
       "il" 'company-coq-lemma-from-goal
       "im" 'company-coq-insert-match-construct
-      "d" 'company-coq-jump-to-definition)))
-
-(defun setup-common-leader-keys-for-pg-modes ()
-  "Setup common key bindings for coq-mode, coq-goals-mode, and coq-response-mode"
-  (cl-loop for (key . func) in
-        '(("ap"  . coq-Print)
-          ("ac"  . coq-Check)
-          ("ab"  . coq-About)
-          ("aip" . coq-Print-with-implicits)
-          ("aic" . coq-Check-show-implicits)
-          ("aib" . coq-About-with-implicits)
-          ("aap" . coq-Print-with-all)
-          ("aac" . coq-Check-show-all)
-          ("aab" . coq-About-with-all))
-        do
-        (spacemacs/set-leader-keys-for-major-mode 'coq-mode key func)
-        (spacemacs/set-leader-keys-for-major-mode 'coq-response-mode key func)
-        (spacemacs/set-leader-keys-for-major-mode 'coq-goals-mode key func)))
+      )))
 
 (defun coq/init-proof-general ()
   "Initialize Proof General."
@@ -118,7 +111,18 @@
       (spacemacs/declare-prefix-for-mode
         'coq-mode
         (car prefix) (cdr prefix)))
-    (setup-common-leader-keys-for-pg-modes)
+    (setup-common-leader-keys-for-all-pg-modes
+     '(
+       ("ap"  . coq-Print)
+       ("ac"  . coq-Check)
+       ("ab"  . coq-About)
+       ("aip" . coq-Print-with-implicits)
+       ("aic" . coq-Check-show-implicits)
+       ("aib" . coq-About-with-implicits)
+       ("aap" . coq-Print-with-all)
+       ("aac" . coq-Check-show-all)
+       ("aab" . coq-About-with-all)
+       ))
     (spacemacs/set-leader-keys-for-major-mode 'coq-mode
       ;; Basic proof management and navigation
       "n" 'proof-assert-next-command-interactive
