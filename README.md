@@ -38,6 +38,7 @@ Key Binding  | Description
 `,px`        | Quit prover
 `,pr`        | Retract buffer - rewinds and moves point to beginning of buffer
 `,pb`        | Process buffer - processes and moves point to end of buffer
+`,ps`        | Reprocess buffer up to the cursor (useful to reload recompiled imports)
 
 ### Prover queries
 

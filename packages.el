@@ -58,6 +58,14 @@
     (setq buffer-offer-save t)
     $buf))
 
+(defun proof-reprocess-buffer-to-point ()
+  "Re-process buffer up to point.
+Useful to reload recompiled imports."
+  (interactive)
+  (proof-shell-restart)
+  (proof-shell-wait)
+  (proof-goto-point))
+
 (defun setup-common-leader-keys-for-all-pg-modes (key-table)
   (cl-loop for (key . func) in key-table do
            (spacemacs/set-leader-keys-for-major-mode 'coq-mode key func)
@@ -138,6 +146,7 @@
       "px" 'proof-shell-exit
       "pr" 'proof-retract-buffer
       "pb" 'proof-process-buffer
+      "ps" 'proof-reprocess-buffer-to-point
       ;; Prover queries ('ask prover')
       "af" 'proof-find-theorems
       ;; Moving the point (goto)
